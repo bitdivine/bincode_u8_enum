@@ -297,7 +297,7 @@ fn test_c_style_enum() {
                 type_name: "CStyleEnum",
                 allowed: &bincode::error::AllowedEnumVariants::Allowed(&[0, 1, 2, 3, 4]),
                 found,
-            }) if found == num as u32 => {}
+            }) if found == num as u8 => {}
             Err(e) => panic!("Expected DecodeError::UnexpectedVariant, got {e:?}"),
         }
     }

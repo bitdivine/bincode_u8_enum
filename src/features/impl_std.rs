@@ -287,7 +287,7 @@ impl Decode for IpAddr {
             1 => Ok(IpAddr::V6(Ipv6Addr::decode(decoder)?)),
             found => Err(DecodeError::UnexpectedVariant {
                 allowed: &crate::error::AllowedEnumVariants::Range { min: 0, max: 1 },
-                found,
+                found: found as u8,
                 type_name: core::any::type_name::<IpAddr>(),
             }),
         }
@@ -347,7 +347,7 @@ impl Decode for SocketAddr {
             1 => Ok(SocketAddr::V6(SocketAddrV6::decode(decoder)?)),
             found => Err(DecodeError::UnexpectedVariant {
                 allowed: &crate::error::AllowedEnumVariants::Range { min: 0, max: 1 },
-                found,
+                found: (found as u8),
                 type_name: core::any::type_name::<SocketAddr>(),
             }),
         }

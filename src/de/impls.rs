@@ -606,7 +606,7 @@ where
                 Ok(Err(u))
             }
             x => Err(DecodeError::UnexpectedVariant {
-                found: x as u32,
+                found: x as u8,
                 allowed: &crate::error::AllowedEnumVariants::Range { max: 1, min: 0 },
                 type_name: core::any::type_name::<Result<T, U>>(),
             }),
@@ -631,7 +631,7 @@ where
                 Ok(Err(u))
             }
             x => Err(DecodeError::UnexpectedVariant {
-                found: x as u32,
+                found: x as u8,
                 allowed: &crate::error::AllowedEnumVariants::Range { max: 1, min: 0 },
                 type_name: core::any::type_name::<Result<T, U>>(),
             }),
@@ -746,7 +746,7 @@ where
             2 => Ok(Bound::Excluded(T::decode(decoder)?)),
             x => Err(DecodeError::UnexpectedVariant {
                 allowed: &crate::error::AllowedEnumVariants::Range { max: 2, min: 0 },
-                found: x,
+                found: x as u8,
                 type_name: core::any::type_name::<Bound<T>>(),
             }),
         }
@@ -764,7 +764,7 @@ where
             2 => Ok(Bound::Excluded(T::borrow_decode(decoder)?)),
             x => Err(DecodeError::UnexpectedVariant {
                 allowed: &crate::error::AllowedEnumVariants::Range { max: 2, min: 0 },
-                found: x,
+                found: x as u8,
                 type_name: core::any::type_name::<Bound<T>>(),
             }),
         }

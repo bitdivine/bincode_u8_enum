@@ -103,7 +103,7 @@ pub enum DecodeError {
         allowed: &'static AllowedEnumVariants,
 
         /// The index of the enum that the decoder encountered
-        found: u32,
+        found: u8,
     },
 
     /// The decoder tried to decode a `str`, but an utf8 error was encountered.
@@ -220,9 +220,9 @@ impl DecodeError {
 pub enum AllowedEnumVariants {
     /// All values between `min` and `max` (inclusive) are allowed
     #[allow(missing_docs)]
-    Range { min: u32, max: u32 },
+    Range { min: u8, max: u8 },
     /// Each one of these values is allowed
-    Allowed(&'static [u32]),
+    Allowed(&'static [u8]),
 }
 
 /// Integer types. Used by [DecodeError]. These types have no purpose other than being shown in errors.

@@ -264,7 +264,7 @@ pub(crate) fn decode_option_variant<D: Decoder>(
         0 => Ok(None),
         1 => Ok(Some(())),
         x => Err(DecodeError::UnexpectedVariant {
-            found: x as u32,
+            found: x as u8,
             allowed: &crate::error::AllowedEnumVariants::Range { max: 1, min: 0 },
             type_name,
         }),

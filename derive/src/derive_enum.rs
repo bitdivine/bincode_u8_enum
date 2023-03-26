@@ -83,14 +83,14 @@ impl DeriveEnum {
                         // Body of this variant
                         // Note that the fields are available as locals because of the match destructuring above
                         // {
-                        //      encoder.encode_u32(n)?;
+                        //      encoder.encode_u8(n)?;
                         //      bincode::Encode::encode(a, encoder)?;
                         //      bincode::Encode::encode(b, encoder)?;
                         //      bincode::Encode::encode(c, encoder)?;
                         // }
                         match_body.group(Delimiter::Brace, |body| {
                             // variant index
-                            body.push_parsed(format!("<u32 as {}::Encode>::encode", crate_name))?;
+                            body.push_parsed(format!("<u8 as {}::Encode>::encode", crate_name))?;
                             body.group(Delimiter::Parenthesis, |args| {
                                 args.punct('&');
                                 args.group(Delimiter::Parenthesis, |num| {
@@ -248,7 +248,7 @@ impl DeriveEnum {
                 } else {
                     fn_builder
                         .push_parsed(format!(
-                            "let variant_index = <u32 as {}::Decode>::decode(decoder)?;",
+                            "let variant_index = <u8 as {}::Decode>::decode(decoder)?;",
                             crate_name
                         ))?;
                     fn_builder.push_parsed("match variant_index")?;
@@ -342,7 +342,7 @@ impl DeriveEnum {
                     ))?;
                 } else {
                     fn_builder
-                        .push_parsed(format!("let variant_index = <u32 as {}::Decode>::decode(decoder)?;", crate_name))?;
+                        .push_parsed(format!("let variant_index = <u8 as {}::Decode>::decode(decoder)?;", crate_name))?;
                     fn_builder.push_parsed("match variant_index")?;
                     fn_builder.group(Delimiter::Brace, |variant_case| {
                         for (mut variant_index, variant) in self.iter_fields() {
@@ -410,7 +410,7 @@ impl<'a> Iterator for EnumVariantIterator<'a> {
         let variant = self.variants.get(self.idx)?;
         self.idx += 1;
 
-        let tokens = vec![TokenTree::Literal(Literal::u32_suffixed(idx as u32))];
+        let tokens = vec![TokenTree::Literal(Literal::u8_suffixed(idx as u8))];
 
         Some((tokens, variant))
     }
